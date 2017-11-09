@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Since lastest update for tmux, tmux does not inherit enviroment variables from
-caller on server start. It inherit enviroment variables after a server shutdown
-though my session saved with resurrect is broken.
-It seems tmux-resurrect saves a broken session, but this can be fixed by
-deleting the lastest saved session and replace it with the one before.
+Since lastest update for tmux, tmux on my system does not inherit enviroment 
+variables from caller on server start. It will inherit enviroment variables after 
+a server shutdown but then my session saved with resurrect is broken.
+It seems tmux-resurrect saves a broken session after shutdown of tmux, 
+but this can be fixed by deleting the last saved session 
+and replace it with second last session.
 
-So this script is to start the tmux server, kill it again, delete the latest
+So this script is to start the tmux server, kill it again, delete the last
 saved session and point tmux-resurrect 'last' to second last saved session.
 """
 
