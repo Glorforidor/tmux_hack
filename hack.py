@@ -7,8 +7,9 @@ It seems tmux-resurrect saves a broken session after shutdown of tmux,
 but this can be fixed by deleting the last saved session
 and replace it with second last session.
 
-So this script is to start the tmux server, kill it again, delete the last
+So this script is to start the tmux server, kill it, delete the last
 saved session and point tmux-resurrect 'last' to second last saved session.
+Lastly it will start tmux again.
 """
 
 import os
@@ -43,3 +44,6 @@ print('Delete old link:', files[files.index('last')])
 os.remove(tmux_resurrect_path+files[files.index('last')])
 print(f'Link second lastest file: {files[-2]} session as last')
 os.symlink(tmux_resurrect_path+files[-2], tmux_resurrect_path+'last')
+
+# Start tmux again
+subprocess.call(['tmux'])
