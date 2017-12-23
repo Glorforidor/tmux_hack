@@ -16,7 +16,6 @@ import os
 import subprocess
 import time
 from threading import Thread
-from typing import List
 
 
 def kill_tmux():
@@ -36,7 +35,7 @@ time.sleep(2)
 
 home = os.getenv('HOME')
 tmux_resurrect_path = f'{home}/.tmux/resurrect/'
-files: List[str] = sorted(os.listdir(tmux_resurrect_path))
+files = sorted(os.listdir(tmux_resurrect_path))
 
 print('Delete broken session:', files[-1])
 os.remove(tmux_resurrect_path+files[-1])
