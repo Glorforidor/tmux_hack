@@ -44,5 +44,5 @@ os.remove(tmux_resurrect_path+files[files.index('last')])
 print(f'Link second lastest file: {files[-2]} session as last')
 os.symlink(tmux_resurrect_path+files[-2], tmux_resurrect_path+'last')
 
-# Start tmux again
-subprocess.call(['tmux'])
+# Start tmux again and replace current process
+os.execlp('tmux', 'tmux')
