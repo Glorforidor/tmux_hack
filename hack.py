@@ -20,29 +20,29 @@ from threading import Thread
 
 def kill_tmux():
     time.sleep(2)
-    print('Kill tmux server')
-    subprocess.call(['tmux', 'kill-server'])
+    print("Kill tmux server")
+    subprocess.call(["tmux", "kill-server"])
 
 
-print('Start tmux server')
-subprocess.call(['tmux', 'start-server'])
+print("Start tmux server")
+subprocess.call(["tmux", "start-server"])
 t = Thread(target=kill_tmux)
 t.start()
-subprocess.call(['tmux'])
+subprocess.call(["tmux"])
 t.join()  # Wait for tmux to exit
 # maybe tmux saves a session after exit. Wait for it to be saved.
 time.sleep(2)
 
-home = os.getenv('HOME')
-tmux_resurrect_path = f'{home}/.tmux/resurrect/'
+home = os.getenv("HOME")
+tmux_resurrect_path = f"{home}/.tmux/resurrect/"
 files = sorted(os.listdir(tmux_resurrect_path))
 
-print('Delete broken session:', files[-1])
-os.remove(tmux_resurrect_path+files[-1])
-print('Delete old link:', files[files.index('last')])
-os.remove(tmux_resurrect_path+files[files.index('last')])
-print(f'Link second lastest file: {files[-2]} session as last')
-os.symlink(tmux_resurrect_path+files[-2], tmux_resurrect_path+'last')
+print("Delete broken session:", files[-1])
+os.remove(tmux_resurrect_path + files[-1])
+print("Delete old link:", files[files.index("last")])
+os.remove(tmux_resurrect_path + files[files.index("last")])
+print(f"Link second lastest file: {files[-2]} session as last")
+os.symlink(tmux_resurrect_path + files[-2], tmux_resurrect_path + "last")
 
 # Start tmux again and replace current process
-os.execlp('tmux', 'tmux')
+os.execlp("tmux", "tmux")
